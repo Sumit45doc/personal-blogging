@@ -1,6 +1,5 @@
 import { useRoutes, Navigate } from "react-router-dom";
 import { About, Contact, DesignBlog, Home, PersonalBlog } from "./element";
-import MainHeader from "../components/shared/layout/MainHeader";
 
 export default function Router() {
     return useRoutes([
