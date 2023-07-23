@@ -1,20 +1,27 @@
 @font-face {
-    font-family: 'Inter';
+    font-family: 'Roboto';
     font-weight: 400;
     font-style: normal;
-    src: local('Inter'), url('Inter-Regular.ttf') format('opentype');
+    src: local('Roboto'), url('Roboto-Light.ttf') format('opentype');
 }
 
 @font-face {
-    font-family: 'Inter';
+    font-family: 'Roboto';
     font-weight: 500;
     font-style: normal;
-    src: local('Inter'), url('Inter-Medium.ttf') format('opentype');
+    src: local('Roboto'), url('Roboto-Regular.ttf') format('opentype');
 }
 
 @font-face {
-    font-family: 'Inter';
+    font-family: 'Roboto';
     font-weight: 700;
     font-style: normal;
-    src: local('Inter'), url('Inter-Bold.ttf') format('opentype');
+    src: local('Roboto'), url('Roboto-Medium.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 800;
+    font-style: normal;
+    src: local('Roboto'), url('Roboto-Bold.ttf') format('opentype');
 }

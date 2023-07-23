@@ -1,3 +1,3 @@
 export const typography = {
-    fontFamily: 'Inter'
+    fontFamily: 'Roboto'
 }
