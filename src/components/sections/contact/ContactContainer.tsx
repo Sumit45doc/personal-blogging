@@ -1,5 +1,4 @@
 import { Box, Container, Typography } from '@mui/material'
-import React from 'react'
 import ContactForm from './ContactForm'
 
 function ContactContainer() {
