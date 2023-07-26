@@ -5,6 +5,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import GlobalStyle from './theme/GlobalStyle';
 import { createTheme, ThemeProvider } from '@mui/material'
 import { typography } from './theme/typography';
+import './app.css'
 
 function App() {
 
