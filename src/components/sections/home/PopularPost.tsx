@@ -1,7 +1,10 @@
+// import useGetPopularPosts from '../../../hooks/query/useGetPopularPosts'
 import BlogCard from '../../shared/BlogCard'
 import PostContainer from '../../shared/PostContainer'
 
 function PopularPost() {
+    // const { data } = useGetPopularPosts()
+
     return (
         <PostContainer title={'POPULAR POSTS'}>
             <BlogCard />
