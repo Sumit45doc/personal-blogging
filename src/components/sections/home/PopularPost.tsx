@@ -1,5 +1,6 @@
 // import useGetPopularPosts from '../../../hooks/query/useGetPopularPosts'
 import BlogCard from '../../shared/BlogCard'
+// import LoadingBlogsCard from '../../shared/LoadingBlogsCard'
 import PostContainer from '../../shared/PostContainer'
 
 function PopularPost() {
@@ -13,6 +14,7 @@ function PopularPost() {
             <BlogCard />
             <BlogCard />
             <BlogCard />
+            {/* <LoadingBlogsCard /> */}
         </PostContainer>
     )
 }
