@@ -1,5 +1,5 @@
 import { useRoutes, Navigate } from "react-router-dom";
-import { About, Contact, DesignBlog, Home, PersonalBlog } from "./element";
+import { About, Contact, CreatePost, DesignBlog, Home, PersonalBlog } from "./element";
 
 export default function Router() {
     return useRoutes([
@@ -38,6 +38,18 @@ export default function Router() {
             element: (
                 <Contact />
             )
+        },
+        // admin
+        {
+            path: 'admin',
+            children: [
+                {
+                    path: 'create',
+                    element: (
+                        <CreatePost />
+                    )
+                }
+            ]
         }
     ]);
 }
