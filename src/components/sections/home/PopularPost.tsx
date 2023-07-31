@@ -1,20 +1,25 @@
-// import useGetPopularPosts from '../../../hooks/query/useGetPopularPosts'
+import useGetPopularPosts from '../../../hooks/query/useGetPopularPosts'
 import BlogCard from '../../shared/BlogCard'
-// import LoadingBlogsCard from '../../shared/LoadingBlogsCard'
+import LoadingBlogsCard from '../../shared/LoadingBlogsCard'
 import PostContainer from '../../shared/PostContainer'
 
 function PopularPost() {
-    // const { data } = useGetPopularPosts()
+    const { data, isLoading, isError, error } = useGetPopularPosts()
 
+    if (isLoading) {
+        return (
+            <PostContainer title={'POPULAR POSTS'}>
+                <LoadingBlogsCard noOfCard={3} />
+            </PostContainer>
+        )
+    }
+
+    if(isError) <>{JSON.stringify(error)}</>
+
+       console.log(data?.data.data) 
     return (
         <PostContainer title={'POPULAR POSTS'}>
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            {/* <LoadingBlogsCard /> */}
+            {data?.data.data.map((blog) => <BlogCard {...blog} key={blog._id} />)}
         </PostContainer>
     )
 }
