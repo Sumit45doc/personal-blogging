@@ -7,8 +7,6 @@ export const API = axios.create({
     baseURL: `${import.meta.env.VITE_API_BASE_URL}`
 });
 
-console.log(import.meta.env.VITE_API_BASE_URL)
-
 API.interceptors.request.use((req) => {
     const token = localStorage.getItem(localStorageConstant.AUTHTOKEN)
     if (token) {
