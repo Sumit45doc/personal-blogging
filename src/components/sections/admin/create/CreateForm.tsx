@@ -1,10 +1,9 @@
-import { Box } from '@mui/material'
-import BlogForm, { BlogFormValue, PostType } from '../../../shared/BlogForm'
+import BlogForm, { BlogFormValue } from '../../../shared/BlogForm'
 
-const initialValues = {
+const initialValues: BlogFormValue = {
   title: '',
   description: '',
-  type: PostType.DESIGN,
+  type: 'design',
   selectedFile: ''
 }
 
@@ -24,9 +23,7 @@ function CreateForm() {
   }
 
   return (
-    <Box>
-      <BlogForm initialValues={initialValues} onSubmit={handleSubmit} />
-    </Box>
+    <BlogForm initialValues={initialValues} onSubmit={handleSubmit} />
   )
 }
 
