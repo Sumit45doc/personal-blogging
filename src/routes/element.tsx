@@ -19,4 +19,6 @@ export const Contact = Loadable(lazy(() => import('../pages/Contact')));
 
 
 // admin
-export const CreatePost = Loadable(lazy(() => import('../pages/admin/CreatePost')))
+export const BlogsList = Loadable(lazy(() => import('../pages/admin/BlogsList')))
+export const CreateBlog = Loadable(lazy(() => import('../pages/admin/CreateBlog')))
+export const EditBlog = Loadable(lazy(() => import('../pages/admin/EditBlog')))

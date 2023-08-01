@@ -1,5 +1,5 @@
 import { useRoutes, Navigate } from "react-router-dom";
-import { About, Contact, CreatePost, DesignBlog, Home, PersonalBlog } from "./element";
+import { About, BlogsList, Contact, CreateBlog, DesignBlog, EditBlog, Home, PersonalBlog } from "./element";
 
 export default function Router() {
     return useRoutes([
@@ -44,10 +44,24 @@ export default function Router() {
             path: 'admin',
             children: [
                 {
-                    path: 'create',
+                    element: <Navigate to={'/admin/blogs-list'} replace  />,
+                    index: true
+                },
+                {
+                    path: 'create-blog',
                     element: (
-                        <CreatePost />
+                        <CreateBlog />
                     )
+                },
+                {
+                    path: 'blogs-list',
+                    element: (
+                        <BlogsList />
+                    )
+                },
+                {
+                    path: ':id/edit-blog',
+                    element: <EditBlog />
                 }
             ]
         }
