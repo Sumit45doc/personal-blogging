@@ -2,16 +2,18 @@ import { AppBar, Container, Toolbar, Box, Button, styled, Typography, Divider, L
 import { useState } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
+import { PATH_HOME } from '../../../state/path';
 
 
 const drawerWidth = 240;
 
+const { home, personalBlog, designBlog, about, contact } = PATH_HOME
 const pages = [
-    { name: 'Home', url: 'home' },
-    { name: 'Personal Blog', url: 'personal-blogs' },
-    { name: 'Design blog', url: 'design-blogs' },
-    { name: 'About', url: 'about' },
-    { name: 'Contact', url: 'contact' }
+    { name: 'Home', url: home },
+    { name: 'Personal Blog', url: personalBlog },
+    { name: 'Design blog', url: designBlog },
+    { name: 'About', url: about },
+    { name: 'Contact', url: contact }
 ]
 
 function Header() {
