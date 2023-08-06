@@ -2,7 +2,7 @@ function path(root: string, sublink: string) {
     return `${root}${sublink}`;
 }
 
-const ROOTS_ADMIN = '/admin'
+const ROOTS_ADMIN = 'admin'
 
 export const PATH_ADMIN = {
     root: ROOTS_ADMIN,
@@ -13,6 +13,8 @@ export const PATH_ADMIN = {
 
 export const PATH_HOME = {
     root: '/',
+    signUp: 'sign-up',
+    signIn: 'sign-in',
     home: 'home',
     personalBlog: 'personal-blogs',
     designBlog: 'design-blogs',
