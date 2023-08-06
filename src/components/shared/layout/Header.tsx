@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
 import { PATH_HOME } from '../../../state/path';
+import { useSelector } from '../../../redux/store';
+import AuthOptionButtons from '../AuthOptionButton';
 
 
 const drawerWidth = 240;
@@ -17,6 +19,7 @@ const pages = [
 ]
 
 function Header() {
+    const { _id, name } = useSelector(state => state.user)
 
     const [mobileOpen, setMobileOpen] = useState(false);
     const navigate = useNavigate()
@@ -33,6 +36,13 @@ function Header() {
             </Typography>
             <Divider />
             <List>
+                <ListItem disablePadding>
+                    <ListItemButton sx={{ textAlign: 'center' }}>
+                        <ListItemText primary={
+                            <AuthOptionButtons />
+                        } />
+                    </ListItemButton>
+                </ListItem>
                 {pages.map((item) => (
                     <ListItem key={item.url} disablePadding>
                         <ListItemButton sx={{ textAlign: 'center' }}>
@@ -76,6 +86,10 @@ function Header() {
                                 Ruchita Samel
                             </Typography>
                             <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                                {!_id ? <Button sx={{ my: 2, mx: 1, color: 'rgba(255,255,255,0.6)', ':hover': { color: 'white' } }}
+                                >
+                                    <AuthOptionButtons />
+                                </Button> : <>Hi {name}</>}
                                 {pages.map((page) => (
                                     <Button
                                         type="button"
@@ -99,7 +113,7 @@ function Header() {
                     </Container>
                 </Bar>
             </Box>
-            <Box component="nav" sx={{ height: '10vh' }}>
+            <Box component="nav">
                 <Drawer
                     container={container}
                     variant="temporary"
