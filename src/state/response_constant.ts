@@ -42,3 +42,9 @@ export type get_user = {
     createdAt: string,
     updatedAt: string
 }
+
+// get user api response
+export type get_user_response = {
+    data: { data: get_user },
+    headers: { 'x-auth-token': string }
+}
