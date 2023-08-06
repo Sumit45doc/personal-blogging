@@ -2,8 +2,25 @@ import { useRoutes, Navigate } from "react-router-dom";
 import { About, BlogsList, Contact, CreateBlog, DesignBlog, EditBlog, Home, PersonalBlog, Signin } from "./element";
 import SignUp from "../pages/SignUp";
 import RoleBasedGuard from "../components/shared/RoleBaseGuard";
+import { useEffect } from 'react'
+import { localStorageConstant } from "../state/localstorage_constant";
+import { isValidToken, setSession } from "../utils/jwt";
+import { useDispatch } from "../redux/store";
+import { logout } from "../redux/slice/user";
 
 export default function Router() {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        const token = localStorage.getItem(localStorageConstant.AUTHTOKEN)
+        if (token && isValidToken(token)) {
+            setSession(token, dispatch)
+        } else {
+            dispatch(logout())
+        }
+    }, [])
+
+
     return useRoutes([
         {
             path: 'sign-up',
@@ -59,7 +76,7 @@ export default function Router() {
             element: <RoleBasedGuard roles={['admin']} />,
             children: [
                 {
-                    element: <Navigate to={'/admin/blogs-list'} replace  />,
+                    element: <Navigate to={'/admin/blogs-list'} replace />,
                     index: true
                 },
                 {
