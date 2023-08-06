@@ -1,3 +1,4 @@
 export enum localStorageConstant {
-    AUTHTOKEN = 'auth-token'
+    AUTHTOKEN = 'x-auth-token',
+    USER = 'user'
 }
