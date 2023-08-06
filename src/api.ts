@@ -1,7 +1,7 @@
 import axios from "axios";
 import { api_constant } from "./state/api_constant";
 import { localStorageConstant } from "./state/localstorage_constant";
-import { delete_post, get_latest_posts, get_popular_posts, get_post, get_user, update_like_post, update_view_post } from "./state/response_constant";
+import { delete_post, get_latest_posts, get_popular_posts, get_post, get_user_response, update_like_post, update_view_post } from "./state/response_constant";
 import { post_create_blog, post_signin, post_signup, post_update_blog } from "./state/request_constant";
 
 export const API = axios.create({
@@ -32,5 +32,5 @@ export const likePost = (id: string): Promise<update_like_post> => API.patch(api
 
 
 // auth
-export const signin = (data: post_signin): Promise<get_user> => API.post(api_constant.signin, data)
-export const signup = (data: post_signup): Promise<get_user> => API.post(api_constant.signup, data)
+export const signin = (data: post_signin): Promise<get_user_response> => API.post(api_constant.signin, data)
+export const signup = (data: post_signup): Promise<get_user_response> => API.post(api_constant.signup, data)

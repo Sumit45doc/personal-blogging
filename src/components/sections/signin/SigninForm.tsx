@@ -7,8 +7,9 @@ import usePostSignin from "../../../hooks/query/usePostSignin";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { auth } from "../../../redux/slice/user";
-import { get_user } from "../../../state/response_constant";
+import { get_user_response } from "../../../state/response_constant";
 import { PATH_HOME } from "../../../state/path";
+import { useDispatch } from "../../../redux/store";
 
 const initialValues: post_signin = {
     email: '',
@@ -16,7 +17,7 @@ const initialValues: post_signin = {
 }
 
 function SigninForm() {
-
+    const dispatch = useDispatch()
     const { enqueueSnackbar } = useSnackbar()
     const navigate = useNavigate()
 
@@ -27,14 +28,14 @@ function SigninForm() {
         })
     }
 
-    const onSuccess = (data: get_user) => {
+    const onSuccess = (data: get_user_response) => {
         enqueueSnackbar(<Typography>Logged In</Typography>, {
             variant: 'success',
             autoHideDuration: 1000
         })
-        console.log(data)
-        auth(data)
-        navigate(PATH_HOME.home)
+        const { headers } = data;
+        dispatch(auth(data.data.data, headers["x-auth-token"]))
+        navigate(`/${PATH_HOME.home}`)
     }
 
     const { mutate, isLoading } = usePostSignin({ onSuccess, onError })

@@ -6,9 +6,10 @@ import { post_signup } from "../../../state/request_constant";
 import { useSnackbar } from "notistack";
 import usePostSignup from "../../../hooks/query/usePostSignup";
 import { useNavigate } from "react-router-dom";
-import { get_user } from "../../../state/response_constant";
+import { get_user_response } from "../../../state/response_constant";
 import { auth } from "../../../redux/slice/user";
 import { PATH_HOME } from "../../../state/path";
+import { useDispatch } from "../../../redux/store";
 
 type FormValue = {
   confirmPassword: string
@@ -23,6 +24,7 @@ const initialValues: FormValue = {
 }
 
 function SignUpForm() {
+  const dispatch = useDispatch()
 
   const { enqueueSnackbar } = useSnackbar()
   const navigate = useNavigate()
@@ -33,12 +35,13 @@ function SignUpForm() {
     })
   }
 
-  const onSuccess = (data: get_user) => {
-    auth(data)
+  const onSuccess = (data: get_user_response) => {
     enqueueSnackbar(<Typography>Account created successful</Typography>, {
       variant: 'success'
     })
-    navigate(PATH_HOME.home)
+    const { headers } = data;
+    dispatch(auth(data.data.data, headers["x-auth-token"]))
+    navigate(`/${PATH_HOME.home}`)
   }
 
   const { mutate: createAccount, isLoading } = usePostSignup({ onSuccess, onError })
@@ -53,13 +56,13 @@ function SignUpForm() {
   })
 
   const onSubmit = (values: FormValue) => {
-    if(values.confirmPassword){
+    if (values.confirmPassword) {
       // @ts-ignore
       delete values.confirmPassword
     }
-    const user: post_signup = {...values}
+    const user: post_signup = { ...values }
 
-   createAccount(user)
+    createAccount(user)
   }
 
 
