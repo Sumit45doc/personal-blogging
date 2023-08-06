@@ -1,8 +1,22 @@
 import { useRoutes, Navigate } from "react-router-dom";
-import { About, BlogsList, Contact, CreateBlog, DesignBlog, EditBlog, Home, PersonalBlog } from "./element";
+import { About, BlogsList, Contact, CreateBlog, DesignBlog, EditBlog, Home, PersonalBlog, Signin } from "./element";
+import SignUp from "../pages/SignUp";
+import RoleBasedGuard from "../components/shared/RoleBaseGuard";
 
 export default function Router() {
     return useRoutes([
+        {
+            path: 'sign-up',
+            element: (
+                <SignUp />
+            )
+        },
+        {
+            path: 'sign-in',
+            element: (
+                <Signin />
+            )
+        },
         {
             path: '/',
             children: [
@@ -42,6 +56,7 @@ export default function Router() {
         // admin
         {
             path: 'admin',
+            element: <RoleBasedGuard roles={['admin']} />,
             children: [
                 {
                     element: <Navigate to={'/admin/blogs-list'} replace  />,
