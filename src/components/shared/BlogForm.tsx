@@ -24,9 +24,10 @@ export type BlogFormValue = {
 type Props = {
   initialValues: BlogFormValue
   onSubmit: (values: BlogFormValue, onSubmitProps: { setSubmitting: (arg0: boolean) => void; }) => void
+  isLoading: boolean
 }
 
-function BlogForm({ initialValues, onSubmit }: Props) {
+function BlogForm({ initialValues, onSubmit, isLoading }: Props) {
   const [openFullImage, setFullImage] = useState(false)
 
   const validationSchema = Yup.object({
@@ -163,7 +164,7 @@ function BlogForm({ initialValues, onSubmit }: Props) {
                         }
                       </Stack>
 
-                      <LoadingButton type="submit" color="secondary" variant="contained" loading={formik.isSubmitting} disabled={!formik.isValid} >submit</LoadingButton>
+                      <LoadingButton type="submit" color="secondary" variant="contained" loading={isLoading} disabled={!formik.isValid} >submit</LoadingButton>
                     </Stack>
                   </StyledCard>
                 </Grid>
