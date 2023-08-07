@@ -3,12 +3,13 @@ import Image from './image/Image';
 import CloseIcon from '@mui/icons-material/Close';
 
 type Props = {
-    image: string;
+    image: string | ArrayBuffer | null;
     handleClose: () => void;
     open: boolean
 }
 
 function ImagePopup({ open, handleClose, image }: Props) {
+    if (!image) return;
     return (
         <Modal
             open={open}

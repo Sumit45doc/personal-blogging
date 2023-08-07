@@ -29,6 +29,7 @@ type Props = {
 
 function BlogForm({ initialValues, onSubmit, isLoading }: Props) {
   const [openFullImage, setFullImage] = useState(false)
+  const [imagesPreview, setImagesPreview] = useState<ArrayBuffer | null>(null);
 
   const validationSchema = Yup.object({
     title: Yup.string().required('Required'),
@@ -37,27 +38,21 @@ function BlogForm({ initialValues, onSubmit, isLoading }: Props) {
     selectedFile: Yup.string().required('Required')
   })
 
-  const convertBase64 = (file: File): Promise<string> => {
-    return new Promise<string>((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file)
-      fileReader.onload = () => {
-        resolve(fileReader.result as string);
-      }
-      fileReader.onerror = (error) => {
-        reject(error);
-      }
-    })
-  }
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): File | null => {
+    const target = e.target as HTMLInputElement
+    if (!target?.files) return null;
+    setImagesPreview(null);
+    const file = target.files[0];
+    const reader = new FileReader();
 
-  const handleFileRead = async (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const target = event.target as HTMLInputElement
-    if (!target?.files) return;
-    const file = target.files[0]
-    const base64 = await convertBase64(file)
-    console.log(base64)
-    return base64
-  }
+    reader.onload = () => {
+      setImagesPreview(reader.result as ArrayBuffer);
+    };
+
+    reader.readAsDataURL(file);
+    return file
+  };
+
 
   const removeImage = (formik: FormikProps<BlogFormValue>) => {
     formik.setFieldValue('selectedFile', '')
@@ -123,14 +118,10 @@ function BlogForm({ initialValues, onSubmit, isLoading }: Props) {
                           type="file"
                           name='selectedFile'
                           inputProps={{ accept: 'image/*, .png. jpg. webp' }}
-                          onChange={e => {
-                            const getBase64Img = async () => {
-                              const image = await handleFileRead(e)
-                              if (image) {
-                                formik.setFieldValue('selectedFile', image)
-                              }
-                            }
-                            getBase64Img()
+                          onChange={(e) => {
+                            // formik.handleChange(e);
+                            const file = onFileChange(e);
+                            formik.setFieldValue('selectedFile', file)
                           }}
                           sx={{ display: 'none' }}
                           onBlur={formik.handleBlur}
@@ -152,7 +143,7 @@ function BlogForm({ initialValues, onSubmit, isLoading }: Props) {
                               >
                                 <Close fontSize="medium" />
                               </IconButton>
-                              <SingleFilePreview file={formik.values.selectedFile} />
+                              <SingleFilePreview file={imagesPreview} />
                             </Box>
                           ) : <UploadPlaceholder />}
 
@@ -179,7 +170,7 @@ function BlogForm({ initialValues, onSubmit, isLoading }: Props) {
                       <Box sx={{ position: 'relative', height: '40vh' }} >
                         {formik.values.selectedFile && (
                           <Box sx={{ cursor: 'pointer' }} onClick={() => setFullImage(true)}>
-                            <SingleFilePreview file={formik.values.selectedFile} />
+                            <SingleFilePreview file={imagesPreview} />
                           </Box>
                         )}
                       </Box>
@@ -189,7 +180,7 @@ function BlogForm({ initialValues, onSubmit, isLoading }: Props) {
 
               </Grid>
               <ImagePopup
-                image={formik.values.selectedFile}
+                image={imagesPreview}
                 open={openFullImage}
                 handleClose={() => setFullImage(false)}
               />

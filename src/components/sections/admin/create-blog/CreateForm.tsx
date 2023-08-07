@@ -31,7 +31,13 @@ function CreateForm() {
   const handleSubmit = (
     values: BlogFormValue
   ) => {
-    createBlog(values)
+
+    const formData = new FormData()
+    formData.set('title', values.title)
+    formData.set('description', values.description)
+    formData.set('type', values.type)
+    formData.append('selectedFile', values.selectedFile)
+    createBlog(formData)
   }
 
   return (

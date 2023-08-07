@@ -1,11 +1,10 @@
 //
 import Image from '../image/Image';
-import { CustomFile } from './types';
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  file: CustomFile | string | null;
+  file: ArrayBuffer | null;
 };
 
 export default function SingleFilePreview({ file }: Props) {
@@ -13,12 +12,10 @@ export default function SingleFilePreview({ file }: Props) {
     return null;
   }
 
-  const imgUrl = typeof file === 'string' ? file : file.preview;
-
   return (
     <Image
       alt="file preview"
-      src={imgUrl}
+      src={file}
       sx={{
         top: 8,
         left: 8,

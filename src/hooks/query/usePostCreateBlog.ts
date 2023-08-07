@@ -13,7 +13,7 @@ type Props = {
 
 function usePostCreateBlog({ onSuccess, onError }: Props) {
   return useMutation(
-    (payload: post_create_blog) => createPost(payload),
+    (payload: FormData) => createPost(payload),
     {
       onSuccess,
       onError

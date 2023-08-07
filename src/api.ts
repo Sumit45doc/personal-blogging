@@ -22,7 +22,9 @@ export const getPopularPosts = () => API.get<get_popular_posts>(api_constant.get
 export const getLatestPosts = () => API.get<get_latest_posts>(api_constant.getLatestPost)
 
 // CUD operation
-export const createPost = (data: post_create_blog): Promise<get_post> => API.post(api_constant.createPost, data)
+export const createPost = (data: FormData): Promise<get_post> => API.post(api_constant.createPost, data, {
+    headers: { "Content-Type": "multipart/form-data" }
+})
 export const updatePost = (id: string, data: post_update_blog): Promise<get_post> => API.post(api_constant.editPost(id), data)
 export const deletePost = (id: string): Promise<delete_post> => API.delete(api_constant.deletePost(id))
 
