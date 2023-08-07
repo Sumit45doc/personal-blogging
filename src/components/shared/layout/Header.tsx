@@ -2,7 +2,7 @@ import { AppBar, Container, Toolbar, Box, Button, styled, Typography, Divider, L
 import { useState } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
-import { PATH_HOME } from '../../../state/path';
+import { PATH_ADMIN, PATH_HOME } from '../../../state/path';
 import { useSelector } from '../../../redux/store';
 import AuthOptionButtons from '../AuthOptionButton';
 
@@ -10,6 +10,7 @@ import AuthOptionButtons from '../AuthOptionButton';
 const drawerWidth = 240;
 
 const { home, personalBlog, designBlog, about, contact } = PATH_HOME
+const { blogsList } = PATH_ADMIN
 const pages = [
     { name: 'Home', url: home },
     { name: 'Personal Blog', url: personalBlog },
@@ -19,8 +20,8 @@ const pages = [
 ]
 
 function Header() {
-    const { _id, name } = useSelector(state => state.user)
-
+    const { role } = useSelector(state => state.user)
+    const isAdmin = role === 'admin'
     const [mobileOpen, setMobileOpen] = useState(false);
     const navigate = useNavigate()
 
@@ -56,6 +57,19 @@ function Header() {
                         </ListItemButton>
                     </ListItem>
                 ))}
+                {isAdmin && (
+                    <ListItem key={blogsList} disablePadding>
+                        <ListItemButton sx={{ textAlign: 'center' }}>
+                            <ListItemText primary={
+                                <NavLink to={`/${blogsList}`}
+                                    style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? 'black' : '#7b7373' })}
+                                >
+                                    admin
+                                </NavLink>
+                            } />
+                        </ListItemButton>
+                    </ListItem>
+                )}
             </List>
         </Box>
     );
@@ -86,10 +100,10 @@ function Header() {
                                 Ruchita Samel
                             </Typography>
                             <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                                {!_id ? <Button sx={{ my: 2, mx: 1, color: 'rgba(255,255,255,0.6)', ':hover': { color: 'white' } }}
+                                <Button sx={{ my: 2, mx: 1, color: 'rgba(255,255,255,0.6)', ':hover': { color: 'white' } }}
                                 >
                                     <AuthOptionButtons />
-                                </Button> : <>Hi {name}</>}
+                                </Button>
                                 {pages.map((page) => (
                                     <Button
                                         type="button"
@@ -108,6 +122,24 @@ function Header() {
                                         </NavLink>
                                     </Button>
                                 ))}
+                                {isAdmin && (
+                                    <Button
+                                        type="button"
+                                        key={blogsList}
+                                        sx={{ my: 2, mx: 1, color: 'rgba(255,255,255,0.6)', ':hover': { color: 'white' } }}
+                                    >
+                                        <NavLink to={`/${blogsList}`}
+                                            style={({ isActive }) => {
+                                                return {
+                                                    textDecoration: 'none',
+                                                    color: isActive ? 'white' : 'rgba(255,255,255,0.6)'
+                                                };
+                                            }}
+                                        >
+                                            Admin
+                                        </NavLink>
+                                    </Button>
+                                )}
                             </Box>
                         </Toolbar>
                     </Container>
