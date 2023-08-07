@@ -1,13 +1,23 @@
 import { Card, CardHeader, IconButton, CardMedia, CardContent, Typography, CardActions } from '@mui/material'
 import { MoreVert, Favorite, Share } from '@mui/icons-material'
+import { get_popular_post } from '../../state/response_constant'
+import { monthName } from '../../utils'
 
-function BlogCard() {
+type BlogProps = get_popular_post
+
+function BlogCard({ title, description, updatedAt }: BlogProps) {
+    const date = new Date(updatedAt)
+    const month = monthName[date.getMonth()]
+    const year = date.getFullYear()
+    const day = date.getDate()
+
+    const recentUpdate = `${month} ${day}, ${year}`
     return (
         <Card sx={{ maxWidth: 345, borderRadius: '15px', boxShadow: '0 30px 40px -20px rgba(86.99999999999989,28.000000000000007,174,.1)' }}>
             <CardMedia
                 component="img"
                 height="194"
-                image="/assets/production_11.webp"
+                image={'assets/production_11.webp'}
                 alt="Paella dish"
             />
             <CardHeader
@@ -16,8 +26,8 @@ function BlogCard() {
                         <MoreVert />
                     </IconButton>
                 }
-                title="Shrimp and Chorizo Paella"
-                subheader="September 14, 2016"
+                title={title}
+                subheader={recentUpdate}
             />
             <CardContent>
                 <Typography variant="body2" color="text.secondary" sx={{
@@ -27,9 +37,7 @@ function BlogCard() {
                     WebkitLineClamp: '3',
                     WebkitBoxOrient: 'vertical',
                 }}>
-                    This impressive paella is a perfect party dish and a fun meal to cook
-                    together with your guests. Add 1 cup of frozen peas along with the mussels,
-                    if you like.sss
+                    {description}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>

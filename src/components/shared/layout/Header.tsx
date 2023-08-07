@@ -2,20 +2,26 @@ import { AppBar, Container, Toolbar, Box, Button, styled, Typography, Divider, L
 import { useState } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
+import { PATH_ADMIN, PATH_HOME } from '../../../state/path';
+import { useSelector } from '../../../redux/store';
+import AuthOptionButtons from '../AuthOptionButton';
 
 
 const drawerWidth = 240;
 
+const { home, personalBlog, designBlog, about, contact } = PATH_HOME
+const { blogsList } = PATH_ADMIN
 const pages = [
-    { name: 'Home', url: 'home' },
-    { name: 'Personal Blog', url: 'personal-blogs' },
-    { name: 'Design blog', url: 'design-blogs' },
-    { name: 'About', url: 'about' },
-    { name: 'Contact', url: 'contact' }
+    { name: 'Home', url: home },
+    { name: 'Personal Blog', url: personalBlog },
+    { name: 'Design blog', url: designBlog },
+    { name: 'About', url: about },
+    { name: 'Contact', url: contact }
 ]
 
 function Header() {
-
+    const { role } = useSelector(state => state.user)
+    const isAdmin = role === 'admin'
     const [mobileOpen, setMobileOpen] = useState(false);
     const navigate = useNavigate()
 
@@ -31,6 +37,13 @@ function Header() {
             </Typography>
             <Divider />
             <List>
+                <ListItem disablePadding>
+                    <ListItemButton sx={{ textAlign: 'center' }}>
+                        <ListItemText primary={
+                            <AuthOptionButtons />
+                        } />
+                    </ListItemButton>
+                </ListItem>
                 {pages.map((item) => (
                     <ListItem key={item.url} disablePadding>
                         <ListItemButton sx={{ textAlign: 'center' }}>
@@ -44,6 +57,19 @@ function Header() {
                         </ListItemButton>
                     </ListItem>
                 ))}
+                {isAdmin && (
+                    <ListItem key={blogsList} disablePadding>
+                        <ListItemButton sx={{ textAlign: 'center' }}>
+                            <ListItemText primary={
+                                <NavLink to={`/${blogsList}`}
+                                    style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? 'black' : '#7b7373' })}
+                                >
+                                    admin
+                                </NavLink>
+                            } />
+                        </ListItemButton>
+                    </ListItem>
+                )}
             </List>
         </Box>
     );
@@ -74,6 +100,10 @@ function Header() {
                                 Ruchita Samel
                             </Typography>
                             <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                                <Button sx={{ my: 2, mx: 1, color: 'rgba(255,255,255,0.6)', ':hover': { color: 'white' } }}
+                                >
+                                    <AuthOptionButtons />
+                                </Button>
                                 {pages.map((page) => (
                                     <Button
                                         type="button"
@@ -92,12 +122,30 @@ function Header() {
                                         </NavLink>
                                     </Button>
                                 ))}
+                                {isAdmin && (
+                                    <Button
+                                        type="button"
+                                        key={blogsList}
+                                        sx={{ my: 2, mx: 1, color: 'rgba(255,255,255,0.6)', ':hover': { color: 'white' } }}
+                                    >
+                                        <NavLink to={`/${blogsList}`}
+                                            style={({ isActive }) => {
+                                                return {
+                                                    textDecoration: 'none',
+                                                    color: isActive ? 'white' : 'rgba(255,255,255,0.6)'
+                                                };
+                                            }}
+                                        >
+                                            Admin
+                                        </NavLink>
+                                    </Button>
+                                )}
                             </Box>
                         </Toolbar>
                     </Container>
                 </Bar>
             </Box>
-            <Box component="nav" sx={{ height: '10vh' }}>
+            <Box component="nav">
                 <Drawer
                     container={container}
                     variant="temporary"

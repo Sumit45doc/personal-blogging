@@ -23,7 +23,6 @@ const variants: Variants = {
 }
 
 function AnimatedViewBox({ children, viewAmount }: Props) {
-    console.log({ viewAmount })
     return (
         <motion.div
             initial="offscreen"
