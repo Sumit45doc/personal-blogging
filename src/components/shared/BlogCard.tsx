@@ -5,7 +5,7 @@ import { monthName } from '../../utils'
 
 type BlogProps = get_popular_post
 
-function BlogCard({ selectedFile, title, description, likes = [], updatedAt }: BlogProps) {
+function BlogCard({ title, description, updatedAt }: BlogProps) {
     const date = new Date(updatedAt)
     const month = monthName[date.getMonth()]
     const year = date.getFullYear()

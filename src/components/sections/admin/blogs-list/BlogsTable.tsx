@@ -109,7 +109,7 @@ function BlogsTable() {
         setOpenConfirm(false);
     };
 
-    const handleFilterStatus = (event: React.SyntheticEvent<Element, Event>, newValue: string) => {
+    const handleFilterStatus = (_event: React.SyntheticEvent<Element, Event>, newValue: string) => {
         setPage(0);
         setFilterStatus(newValue);
     };
@@ -132,7 +132,7 @@ function BlogsTable() {
     };
 
     const handleDeleteRows = (selectedRows: string[]) => {
-        const deleteRows = tableData.filter((row) => !selectedRows.includes(row.id));
+        const deleteRows = tableData.filter((row) => !selectedRows.includes(row._id));
         setSelected([]);
         setTableData(deleteRows);
 

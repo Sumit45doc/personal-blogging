@@ -32,6 +32,7 @@ function ImagePopup({ open, handleClose, image }: Props) {
                 </IconButton>
                 <Image
                     alt="file preview"
+                    // @ts-ignore
                     src={image}
                     sx={{
                         top: 8,

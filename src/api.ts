@@ -2,7 +2,7 @@ import axios from "axios";
 import { api_constant } from "./state/api_constant";
 import { localStorageConstant } from "./state/localstorage_constant";
 import { delete_post, get_latest_posts, get_popular_posts, get_post, get_user_response, update_like_post, update_view_post } from "./state/response_constant";
-import { post_create_blog, post_signin, post_signup, post_update_blog } from "./state/request_constant";
+import { post_signin, post_signup, post_update_blog } from "./state/request_constant";
 
 export const API = axios.create({
     baseURL: `${import.meta.env.VITE_API_BASE_URL}`

@@ -15,6 +15,7 @@ export default function SingleFilePreview({ file }: Props) {
   return (
     <Image
       alt="file preview"
+      // @ts-ignore
       src={file}
       sx={{
         top: 8,

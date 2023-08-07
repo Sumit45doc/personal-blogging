@@ -2,7 +2,7 @@ import { AppBar, Container, Toolbar, Box, Button, styled, Typography, Divider, L
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
-import { PATH_ADMIN, PATH_HOME } from '../../../state/path';
+import { PATH_ADMIN } from '../../../state/path';
 
 
 const drawerWidth = 240;

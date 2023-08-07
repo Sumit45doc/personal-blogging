@@ -40,7 +40,7 @@ const slice = createSlice({
     }
 })
 
-const { addUser, editUser, removeUser } = slice.actions
+const { addUser, removeUser } = slice.actions
 
 // Reducer
 export default slice.reducer;

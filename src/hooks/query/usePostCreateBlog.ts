@@ -1,5 +1,4 @@
 import { useMutation } from '@tanstack/react-query'
-import { post_create_blog } from '../../state/request_constant'
 import { createPost } from '../../api'
 import { get_post } from '../../state/response_constant'
 
