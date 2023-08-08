@@ -1,8 +1,10 @@
+import { get_posts_request } from "./request_constant"
 
 const POST = '/post'
 const AUTH = '/auth'
 
 export const api_constant = {
+    getPosts: (type: get_posts_request) => `${POST}/get-posts/${type}`,
     getPopularPosts: `${POST}/get-popular-post`,
     getLatestPost: `${POST}/get-latest-post`,
     createPost: `${POST}/create`,

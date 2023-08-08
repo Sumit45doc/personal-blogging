@@ -18,3 +18,5 @@ export type post_signup = {
     email: string;
     password: string,
 }
+
+export type get_posts_request = 'personal' | 'design' | 'all'

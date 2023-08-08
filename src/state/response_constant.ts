@@ -48,3 +48,8 @@ export type get_user_response = {
     data: { data: get_user },
     headers: { 'x-auth-token': string }
 }
+
+// get post 
+export type get_posts = {
+    data: get_post[]
+}
