@@ -1,12 +1,28 @@
+import useGetPosts from '../../../hooks/query/useGetPosts'
 import { calculateViewAmout } from '../../../utils'
-// import BlogCard from '../../shared/BlogCard'
+import LoadingBlogsCard from '../../shared/LoadingBlogsCard'
+import BlogCard from '../../shared/BlogCard'
 import PostContainer from '../../shared/PostContainer'
 
 function DesignBlogsList() {
-    const array = [...Array(10)]
+
+    const { data, isLoading, isError, error } = useGetPosts('design')
+
+    if (isLoading) {
+        return (
+            <PostContainer title={'POPULAR POSTS'}>
+                <LoadingBlogsCard noOfCard={3} />
+            </PostContainer>
+        )
+    }
+
+    if(isError) <>{JSON.stringify(error)}</>
+
+    if(!data) return <>Something went wrong</>
+
     return (
-        <PostContainer viewAmout={calculateViewAmout(array.length)}>
-            {/* {array.map((_, i) => <BlogCard key={i} />)} */}
+        <PostContainer viewAmout={calculateViewAmout(data.data.length)}>
+            {data?.data.map((blog) => <BlogCard {...blog} key={blog._id} />)}
         </PostContainer>
     )
 }
