@@ -1,14 +1,27 @@
 import PostContainer from '../../shared/PostContainer'
-// import BlogCard from '../../shared/BlogCard'
+import BlogCard from '../../shared/BlogCard'
+import LoadingBlogsCard from '../../shared/LoadingBlogsCard'
+import useGetLatestPosts from '../../../hooks/query/useGetLatestPosts'
 
 function LatestPost() {
-  return (
+
+    const { data, isLoading, isError, error } = useGetLatestPosts()
+
+    if (isLoading) {
+        return (
+            <PostContainer title={'POPULAR POSTS'}>
+                <LoadingBlogsCard noOfCard={3} />
+            </PostContainer>
+        )
+    }
+
+    if (isError) <>{JSON.stringify(error)}</>
+
+    if (!data) return <>Something went wrong</>
+
+    return (
         <PostContainer title="LATEST POST">
-            {/* <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard /> */}
+            {data?.data.map((blog) => <BlogCard {...blog} key={blog._id} />)}
         </PostContainer>
     )
 }
