@@ -16,10 +16,11 @@ function PopularPost() {
 
     if(isError) <>{JSON.stringify(error)}</>
 
-       console.log(data?.data.data) 
+    if(!data) return <>Something went wrong</>
+
     return (
         <PostContainer title={'POPULAR POSTS'}>
-            {data?.data.data.map((blog) => <BlogCard {...blog} key={blog._id} />)}
+            {data?.data.map((blog) => <BlogCard {...blog} key={blog._id} />)}
         </PostContainer>
     )
 }
