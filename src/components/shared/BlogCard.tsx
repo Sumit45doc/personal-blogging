@@ -16,7 +16,7 @@ function BlogCard({ title, description, updatedAt }: BlogProps) {
         <Card sx={{ maxWidth: 345, borderRadius: '15px', boxShadow: '0 30px 40px -20px rgba(86.99999999999989,28.000000000000007,174,.1)' }}>
             <CardMedia
                 component="img"
-                height="194"
+                height="182"
                 image={'assets/production_11.webp'}
                 alt="Paella dish"
             />

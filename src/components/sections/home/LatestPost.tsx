@@ -9,7 +9,7 @@ function LatestPost() {
 
     if (isLoading) {
         return (
-            <PostContainer title={'POPULAR POSTS'}>
+            <PostContainer title={'LATEST POSTS'}>
                 <LoadingBlogsCard noOfCard={3} />
             </PostContainer>
         )
@@ -20,7 +20,7 @@ function LatestPost() {
     if (!data) return <>Something went wrong</>
 
     return (
-        <PostContainer title="LATEST POST">
+        <PostContainer title="LATEST POSTS">
             {data?.data.map((blog) => <BlogCard {...blog} key={blog._id} />)}
         </PostContainer>
     )
