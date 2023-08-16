@@ -24,7 +24,7 @@ export type get_latest_post = get_post
 export type get_latest_posts = { data: get_latest_post[] }
 
 // delete post
-export type delete_post = { data: string }
+export type delete_post = { message: string }
 
 //update view
 export type update_view_post = { data: string }
