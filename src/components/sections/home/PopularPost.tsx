@@ -1,20 +1,11 @@
 import useGetPopularPosts from '../../../hooks/query/useGetPopularPosts'
-import useIsAdmin from '../../../hooks/useIsAdmin'
-import BlogCard from '../../shared/BlogCard'
 import LoadingBlogsCard from '../../shared/LoadingBlogsCard'
 import PostContainer from '../../shared/PostContainer'
-
-import useDeletePostFunc from '../../../hooks/useDeletePostFunc'
+import BlogContainer from '../../shared/BlogContainer'
 
 function PopularPost() {
     const { data, isLoading, isError, error } = useGetPopularPosts()
-    const isAdmin = useIsAdmin()
 
-    const { mutate: deletePost } = useDeletePostFunc(["popular-posts"])
-
-    const onDeletePost = (id: string) => {
-        deletePost(id)
-    }
 
     if (isLoading) {
         return (
@@ -30,7 +21,7 @@ function PopularPost() {
 
     return (
         <PostContainer title={'POPULAR POSTS'}>
-            {data?.data.map((blog) => <BlogCard {...blog} key={blog._id} isAdmin={isAdmin} onDeletePost={() => onDeletePost(blog._id)} />)}
+            <BlogContainer blogs={data} queryKey={["popular-posts"]} />
         </PostContainer>
     )
 }

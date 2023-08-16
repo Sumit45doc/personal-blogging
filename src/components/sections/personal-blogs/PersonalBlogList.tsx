@@ -1,21 +1,12 @@
 import useGetPosts from '../../../hooks/query/useGetPosts'
-import useDeletePostFunc from '../../../hooks/useDeletePostFunc'
-import useIsAdmin from '../../../hooks/useIsAdmin'
 import { calculateViewAmout } from '../../../utils'
-import BlogCard from '../../shared/BlogCard'
+import BlogContainer from '../../shared/BlogContainer'
 import LoadingBlogsCard from '../../shared/LoadingBlogsCard'
 import PostContainer from '../../shared/PostContainer'
 
 function PersonalBlogList() {
 
     const { data, isLoading, isError, error } = useGetPosts('personal')
-    const isAdmin = useIsAdmin()
-
-    const { mutate: deletePost } = useDeletePostFunc(["posts-personal"])
-
-    const onDeletePost = (id: string) => {
-        deletePost(id)
-    }
 
     if (isLoading) {
         return (
@@ -31,12 +22,7 @@ function PersonalBlogList() {
 
     return (
         <PostContainer viewAmout={calculateViewAmout(data.data.length)}>
-            {data?.data.map((blog) => <BlogCard
-                {...blog}
-                key={blog._id}
-                isAdmin={isAdmin}
-                onDeletePost={() => onDeletePost(blog._id)}
-            />)}
+           <BlogContainer blogs={data} queryKey={["posts-personal"]} />
         </PostContainer>
     )
 }

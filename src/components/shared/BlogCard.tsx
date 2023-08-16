@@ -7,9 +7,10 @@ import { useState } from 'react'
 interface BlogProps extends get_popular_post {
     isAdmin?: boolean;
     onDeletePost: () => void
+    onEditPost: () => void 
 }
 
-function BlogCard({ title, description, updatedAt, isAdmin = false, onDeletePost }: BlogProps) {
+function BlogCard({ title, description, updatedAt, isAdmin = false, onDeletePost, onEditPost }: BlogProps) {
     const date = new Date(updatedAt)
     const month = monthName[date.getMonth()]
     const year = date.getFullYear()
@@ -84,7 +85,7 @@ function BlogCard({ title, description, updatedAt, isAdmin = false, onDeletePost
                 }}
             >
                 <>
-                    <MenuItem onClick={() => {}}><Edit /> &nbsp; &nbsp;  Edit</MenuItem>
+                    <MenuItem onClick={() => onEditPost()}><Edit /> &nbsp; &nbsp;  Edit</MenuItem>
                     <MenuItem onClick={() => onDeletePost()}><Delete color='error' />&nbsp;&nbsp; Delete</MenuItem>
                 </>
 

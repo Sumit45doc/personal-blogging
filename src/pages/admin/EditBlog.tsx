@@ -1,11 +1,11 @@
 import { useLocation, useParams } from "react-router-dom";
-import { get_popular_post } from "../../state/response_constant";
+import { get_post } from "../../state/response_constant";
 import { Container, Typography } from "@mui/material";
 import EditBlogForm from "../../components/sections/admin/edit-blog/EditBlogForm";
 
 function EditBlog() {
   const { id } = useParams();
-  const { state }: { state: get_popular_post } = useLocation()
+  const { state }: { state: get_post } = useLocation()
   if (!id || !state) return <>Something went wrong</>
 
   return (

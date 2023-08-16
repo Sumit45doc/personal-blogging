@@ -1,21 +1,11 @@
 import PostContainer from '../../shared/PostContainer'
-import BlogCard from '../../shared/BlogCard'
 import LoadingBlogsCard from '../../shared/LoadingBlogsCard'
 import useGetLatestPosts from '../../../hooks/query/useGetLatestPosts'
-import useIsAdmin from '../../../hooks/useIsAdmin'
-import useDeletePostFunc from '../../../hooks/useDeletePostFunc'
+import BlogContainer from '../../shared/BlogContainer'
 
 function LatestPost() {
 
     const { data, isLoading, isError, error } = useGetLatestPosts()
-    const isAdmin = useIsAdmin()
-
-
-    const { mutate: deletePost } = useDeletePostFunc(["latest-posts"])
-
-    const onDeletePost = (id: string) => {
-        deletePost(id)
-    }
 
     if (isLoading) {
         return (
@@ -31,12 +21,7 @@ function LatestPost() {
 
     return (
         <PostContainer title="LATEST POSTS">
-            {data?.data.map((blog) => <BlogCard
-                {...blog}
-                key={blog._id}
-                isAdmin={isAdmin}
-                onDeletePost={() => onDeletePost(blog._id)}
-            />)}
+             <BlogContainer blogs={data} queryKey={["latest-posts"]} />
         </PostContainer>
     )
 }

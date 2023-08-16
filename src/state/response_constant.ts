@@ -23,6 +23,9 @@ export type get_popular_posts = { data: get_popular_post[] }
 export type get_latest_post = get_post
 export type get_latest_posts = { data: get_latest_post[] }
 
+// common post 
+export type get_post_response = { data: get_post[] }
+
 // delete post
 export type delete_post = { message: string }
 
