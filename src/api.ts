@@ -28,7 +28,7 @@ export const createPost = (data: FormData): Promise<get_post> => API.post(api_co
 }).then(res => res.data)
 
 export const updatePost = (id: string, data: post_update_blog): Promise<get_post> => API.post(api_constant.editPost(id), data)
-export const deletePost = (id: string): Promise<delete_post> => API.delete(api_constant.deletePost(id))
+export const deletePost = (id: string): Promise<delete_post> => API.delete(api_constant.deletePost(id)).then(res => res.data)
 
 // analytics
 export const incrementViewPost = (id: string): Promise<update_view_post> => API.patch(api_constant.incrementViewPost(id)).then(res => res.data)
