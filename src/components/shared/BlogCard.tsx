@@ -1,54 +1,95 @@
-import { Card, CardHeader, IconButton, CardMedia, CardContent, Typography, CardActions } from '@mui/material'
-import { MoreVert, Favorite, Share } from '@mui/icons-material'
+import { Card, CardHeader, IconButton, CardMedia, CardContent, Typography, CardActions, Menu, MenuItem } from '@mui/material'
+import { MoreVert, Favorite, Share, Delete, Edit } from '@mui/icons-material'
 import { get_popular_post } from '../../state/response_constant'
 import { monthName } from '../../utils'
+import { useState } from 'react'
 
-type BlogProps = get_popular_post
+interface BlogProps extends get_popular_post {
+    isAdmin?: boolean;
+    onDeletePost: () => void
+}
 
-function BlogCard({ title, description, updatedAt }: BlogProps) {
+function BlogCard({ title, description, updatedAt, isAdmin = false, onDeletePost }: BlogProps) {
     const date = new Date(updatedAt)
     const month = monthName[date.getMonth()]
     const year = date.getFullYear()
     const day = date.getDate()
 
+    // MENU
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     const recentUpdate = `${month} ${day}, ${year}`
     return (
-        <Card sx={{ maxWidth: 345, borderRadius: '15px', boxShadow: '0 30px 40px -20px rgba(86.99999999999989,28.000000000000007,174,.1)' }}>
-            <CardMedia
-                component="img"
-                height="182"
-                image={'assets/production_11.webp'}
-                alt="Paella dish"
-            />
-            <CardHeader
-                action={
-                    <IconButton aria-label="settings">
-                        <MoreVert />
+        <>
+            <Card sx={{ maxWidth: 345, borderRadius: '15px', boxShadow: '0 30px 40px -20px rgba(86.99999999999989,28.000000000000007,174,.1)' }}>
+                <CardMedia
+                    component="img"
+                    height="182"
+                    image={'assets/production_11.webp'}
+                    alt="Paella dish"
+                />
+                <CardHeader
+                    action={
+                        isAdmin ? (<IconButton
+                            aria-label="settings"
+                            aria-controls={open ? 'basic-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                            onClick={handleClick}
+                        >
+                            <MoreVert />
+                        </IconButton>)
+                            :
+                            <></>
+                    }
+                    title={title}
+                    subheader={recentUpdate}
+                />
+                <CardContent>
+                    <Typography variant="body2" color="text.secondary" sx={{
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        WebkitLineClamp: '3',
+                        WebkitBoxOrient: 'vertical',
+                    }}>
+                        {description}
+                    </Typography>
+                </CardContent>
+                <CardActions disableSpacing>
+                    <IconButton aria-label="add to favorites">
+                        <Favorite />
                     </IconButton>
-                }
-                title={title}
-                subheader={recentUpdate}
-            />
-            <CardContent>
-                <Typography variant="body2" color="text.secondary" sx={{
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    display: '-webkit-box',
-                    WebkitLineClamp: '3',
-                    WebkitBoxOrient: 'vertical',
-                }}>
-                    {description}
-                </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <Favorite />
-                </IconButton>
-                <IconButton aria-label="share">
-                    <Share />
-                </IconButton>
-            </CardActions>
-        </Card>
+                    <IconButton aria-label="share">
+                        <Share />
+                    </IconButton>
+                </CardActions>
+            </Card>
+            <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                }}
+            >
+                <>
+                    <MenuItem onClick={() => {}}><Edit /> &nbsp; &nbsp;  Edit</MenuItem>
+                    <MenuItem onClick={() => onDeletePost()}><Delete color='error' />&nbsp;&nbsp; Delete</MenuItem>
+                </>
+
+            </Menu>
+        </>
     )
 }
 
