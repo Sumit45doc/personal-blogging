@@ -28,8 +28,9 @@ type Props = {
 }
 
 function BlogForm({ initialValues, onSubmit, isLoading }: Props) {
+  const editImagePreview = !!initialValues.selectedFile ? initialValues.selectedFile : null 
   const [openFullImage, setFullImage] = useState(false)
-  const [imagesPreview, setImagesPreview] = useState<ArrayBuffer | null>(null);
+  const [imagesPreview, setImagesPreview] = useState<ArrayBuffer | null | string>(editImagePreview);
 
   const validationSchema = Yup.object({
     title: Yup.string().required('Required'),
@@ -119,7 +120,6 @@ function BlogForm({ initialValues, onSubmit, isLoading }: Props) {
                           name='selectedFile'
                           inputProps={{ accept: 'image/*, .png. jpg. webp' }}
                           onChange={(e) => {
-                            // formik.handleChange(e);
                             const file = onFileChange(e);
                             formik.setFieldValue('selectedFile', file)
                           }}

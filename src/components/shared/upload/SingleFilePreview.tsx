@@ -4,7 +4,7 @@ import Image from '../image/Image';
 // ----------------------------------------------------------------------
 
 type Props = {
-  file: ArrayBuffer | null;
+  file: ArrayBuffer | null | string;
 };
 
 export default function SingleFilePreview({ file }: Props) {

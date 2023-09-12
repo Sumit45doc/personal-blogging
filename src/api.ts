@@ -27,7 +27,10 @@ export const createPost = (data: FormData): Promise<get_post> => API.post(api_co
     headers: { "Content-Type": "multipart/form-data" }
 }).then(res => res.data)
 
-export const updatePost = (id: string, data: post_update_blog): Promise<get_post> => API.post(api_constant.editPost(id), data)
+export const updatePost = (id: string, data: FormData, shouldUpdateImage: boolean): Promise<get_post> => API.post(api_constant.editPost(id, shouldUpdateImage), data, {
+    headers: { "Content-Type": "multipart/form-data" }
+}).then(res => res.data)
+
 export const deletePost = (id: string): Promise<delete_post> => API.delete(api_constant.deletePost(id)).then(res => res.data)
 
 // analytics

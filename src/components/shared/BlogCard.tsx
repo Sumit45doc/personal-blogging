@@ -10,7 +10,7 @@ interface BlogProps extends get_popular_post {
     onEditPost: () => void 
 }
 
-function BlogCard({ title, description, updatedAt, isAdmin = false, onDeletePost, onEditPost }: BlogProps) {
+function BlogCard({ title, description, updatedAt, isAdmin = false, onDeletePost, onEditPost, selectedFile }: BlogProps) {
     const date = new Date(updatedAt)
     const month = monthName[date.getMonth()]
     const year = date.getFullYear()
@@ -35,7 +35,7 @@ function BlogCard({ title, description, updatedAt, isAdmin = false, onDeletePost
                 <CardMedia
                     component="img"
                     height="182"
-                    image={'assets/production_11.webp'}
+                    image={selectedFile}
                     alt="Paella dish"
                 />
                 <CardHeader
