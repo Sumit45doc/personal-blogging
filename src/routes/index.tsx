@@ -1,5 +1,5 @@
 import { useRoutes, Navigate } from "react-router-dom";
-import { About, BlogsList, Contact, CreateBlog, DesignBlog, EditBlog, Home, PersonalBlog, Signin } from "./element";
+import { About, Blog, BlogsList, Contact, CreateBlog, DesignBlog, EditBlog, Home, PersonalBlog, Signin } from "./element";
 import SignUp from "../pages/SignUp";
 import RoleBasedGuard from "../components/shared/RoleBaseGuard";
 import { useEffect } from 'react'
@@ -69,6 +69,19 @@ export default function Router() {
             element: (
                 <Contact />
             )
+        },
+        {
+            path: 'blogs',
+            children: [
+                {
+                    element: <>Coming soon</>,
+                    index: true
+                },
+                {
+                    path: ':id',
+                    element: <Blog />
+                }
+            ]
         },
         // admin
         {

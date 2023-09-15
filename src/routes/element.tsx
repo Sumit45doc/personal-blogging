@@ -18,6 +18,7 @@ export const About = Loadable(lazy(() => import('../pages/About')));
 export const Contact = Loadable(lazy(() => import('../pages/Contact')));
 export const Signup = Loadable(lazy(() => import('../pages/SignUp')))
 export const Signin = Loadable(lazy(() => import('../pages/SignIn')))
+export const Blog = Loadable(lazy(() => import('../pages/Blog')))
 
 // admin
 export const BlogsList = Loadable(lazy(() => import('../pages/admin/BlogsList')))
