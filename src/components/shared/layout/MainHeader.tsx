@@ -2,13 +2,14 @@ import Hero from './Hero'
 
 type Props = {
     children: React.ReactNode;
-    heroTitle?: string
+    heroTitle?: string | null;
+    shouldFitImageToHeader?: boolean;
 }
 
-function MainHeader({ children, heroTitle }: Props) {
+function MainHeader({ children, heroTitle, shouldFitImageToHeader }: Props) {
     return (
         <>
-            <Hero heroTitle={heroTitle} />
+            <Hero heroTitle={heroTitle} shouldFitImageToHeader={shouldFitImageToHeader} />
             {children}
         </>
     )
