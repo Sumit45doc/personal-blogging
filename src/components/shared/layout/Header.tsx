@@ -77,7 +77,7 @@ function Header() {
     const container = window !== undefined ? () => window.document.body : undefined;
 
     return (
-        <Box>
+        <Box component={'header'}>
             <Box sx={{ display: 'flex' }}>
                 <Bar position='static'>
                     <Container maxWidth="xl">
