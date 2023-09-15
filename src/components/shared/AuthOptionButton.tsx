@@ -1,8 +1,7 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Avatar, Typography } from '@mui/material';
+import { Avatar, IconButton, Typography } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { PATH_HOME } from '../../state/path';
@@ -39,7 +38,7 @@ export default function AuthOptionButtons() {
 
     return (
         <div>
-            <Button
+            <IconButton
                 id="basic-button"
                 aria-controls={open ? 'basic-menu' : undefined}
                 aria-haspopup="true"
@@ -47,7 +46,7 @@ export default function AuthOptionButtons() {
                 onClick={handleClick}
             >
                 <Avatar />
-            </Button>
+            </IconButton>
             <Menu
                 id="basic-menu"
                 anchorEl={anchorEl}
@@ -58,15 +57,15 @@ export default function AuthOptionButtons() {
                 }}
             >
                 {isLoggedIn ?
-                    <>
+                    (<div>
                         <MenuItem><Typography>Hi, {name}</Typography></MenuItem>
                         <MenuItem onClick={() => handleLogout()}><LogoutIcon />&nbsp;&nbsp; Logout</MenuItem>
-                    </>
+                    </div>)
                     :
-                    <>
+                    <div>
                         <MenuItem onClick={() => handleNavigation(signUp)}><PersonAddIcon />&nbsp;&nbsp; SignUp</MenuItem>
                         <MenuItem onClick={() => handleNavigation(signIn)}><LoginIcon /> &nbsp; &nbsp;  SignIn</MenuItem>
-                    </>
+                    </div>
                 }
             </Menu>
         </div>
