@@ -100,21 +100,21 @@ function Header() {
                                 Ruchita Samel
                             </Typography>
                             <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                                <Button sx={{ my: 2, mx: 1, color: 'rgba(255,255,255,0.6)', ':hover': { color: 'white' } }}
+                                <Box sx={{ display: 'inline-block', my: 2, mx: 1, color: 'rgba(255,255,255,0.6)' }}
                                 >
                                     <AuthOptionButtons />
-                                </Button>
+                                </Box>
                                 {pages.map((page) => (
                                     <Button
                                         type="button"
                                         key={page.url}
-                                        sx={{ my: 2, mx: 1, color: 'rgba(255,255,255,0.6)', ':hover': { color: 'white' } }}
+                                        sx={{ my: 2, mx: 1, color: 'rgba(255,255,255,0.6)', '&:hover': { color: 'white' } }}
                                     >
                                         <NavLink to={`/${page.url}`}
                                             style={({ isActive }) => {
                                                 return {
                                                     textDecoration: 'none',
-                                                    color: isActive ? 'white' : 'rgba(255,255,255,0.6)'
+                                                    color: isActive ? 'white' : 'inherit'
                                                 };
                                             }}
                                         >
@@ -132,7 +132,7 @@ function Header() {
                                             style={({ isActive }) => {
                                                 return {
                                                     textDecoration: 'none',
-                                                    color: isActive ? 'white' : 'rgba(255,255,255,0.6)'
+                                                    color: isActive ? 'white' : 'inherit'
                                                 };
                                             }}
                                         >
