@@ -2,9 +2,12 @@ import { Card, CardHeader, IconButton, CardMedia, CardContent, Typography, CardA
 import { MoreVert, Favorite, Share, Delete, Edit } from '@mui/icons-material'
 import { get_popular_post } from '../../state/response_constant'
 import { monthName } from '../../utils'
-import { useState } from 'react'
+import { MouseEvent, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { PATH_HOME } from '../../state/path'
+import { useSelector } from '../../redux/store'
+import useLikePost from '../../hooks/query/useLikePost'
+import { useSnackbar } from 'notistack'
 
 interface BlogProps extends get_popular_post {
     isAdmin?: boolean;
@@ -12,17 +15,46 @@ interface BlogProps extends get_popular_post {
     onEditPost: () => void
 }
 
-function BlogCard({ title, description, updatedAt, isAdmin = false, onDeletePost, onEditPost, selectedFile, _id }: BlogProps) {
+function BlogCard({
+    title,
+    description,
+    updatedAt,
+    isAdmin = false,
+    onDeletePost,
+    onEditPost,
+    selectedFile,
+    _id,
+    likes
+}: BlogProps) {
+    const { _id: userId } = useSelector(state => state.user)
+    const isLoggedIn = !!userId;
+    const isAlreadyLiked = isLoggedIn ? likes.includes(userId) : false;
+    const [like, setLike] = useState(isAlreadyLiked);
+    const { enqueueSnackbar } = useSnackbar()
+
+
+    const handleLikeError = () => {
+        setLike(prev => !prev)
+        enqueueSnackbar(<Typography>Something went wrong while {like ? 'dislike' : 'like'} post</Typography>, {
+            variant: 'error'
+        })
+    }
+
+    // *Update Like
+    const { mutate: triggerLike } = useLikePost({ onError: handleLikeError })
+
+    // *Date conversion in readable format
     const date = new Date(updatedAt)
     const month = monthName[date.getMonth()]
     const year = date.getFullYear()
     const day = date.getDate()
+    const recentUpdate = `${month} ${day}, ${year}`
 
     // MENU
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -30,7 +62,17 @@ function BlogCard({ title, description, updatedAt, isAdmin = false, onDeletePost
         setAnchorEl(null);
     };
 
-    const recentUpdate = `${month} ${day}, ${year}`
+    const handleLike = (event: MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault()
+        setLike(prev => !prev)
+        triggerLike(_id)
+    }
+
+    const handleShare = (event: MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault()
+    }
+
+
     return (
         <>
             <Card sx={{ maxWidth: 345, borderRadius: '15px', boxShadow: '0 30px 40px -20px rgba(86.99999999999989,28.000000000000007,174,.1)' }}>
@@ -70,10 +112,10 @@ function BlogCard({ title, description, updatedAt, isAdmin = false, onDeletePost
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites">
-                            <Favorite />
+                        <IconButton aria-label="add to favorites" onClick={handleLike}>
+                            <Favorite color={like ? 'secondary' : 'disabled'} />
                         </IconButton>
-                        <IconButton aria-label="share">
+                        <IconButton aria-label="share" onClick={handleShare}>
                             <Share />
                         </IconButton>
                     </CardActions>

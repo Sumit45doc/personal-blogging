@@ -33,7 +33,7 @@ export type delete_post = { message: string }
 export type update_view_post = { data: string }
 
 // like post
-export type update_like_post = { data: string }
+export type update_like_post = { message: string }
 
 
 // get user
