@@ -1,11 +1,11 @@
 import BlogCard from './BlogCard'
-import { get_post, get_post_response } from '../../state/response_constant'
+import { get_post, get_posts_response } from '../../state/response_constant'
 import useIsAdmin from '../../hooks/useIsAdmin'
 import useNavigateEditPost from '../../hooks/useNavigateEditPost'
 import useDeletePostFunc from '../../hooks/useDeletePostFunc'
 
 type Props = {
-    blogs: get_post_response
+    blogs: get_posts_response
     queryKey: string[]
 }
 

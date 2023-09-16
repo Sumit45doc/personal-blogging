@@ -20,4 +20,5 @@ export const PATH_HOME = {
     designBlog: 'design-blogs',
     about: 'about',
     contact: 'contact',
+    blog: (postId: string) => `blogs/${postId}`
 }
