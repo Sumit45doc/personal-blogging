@@ -24,7 +24,7 @@ export type get_latest_post = get_post
 export type get_latest_posts = { data: get_latest_post[] }
 
 // common post 
-export type get_post_response = { data: get_post[] }
+export type get_posts_response = { data: get_post[] }
 
 // delete post
 export type delete_post = { message: string }
@@ -52,7 +52,10 @@ export type get_user_response = {
     headers: { 'x-auth-token': string }
 }
 
-// get post 
-export type get_posts = {
-    data: get_post[]
+// get post response
+export type get_post_response = {
+    data: get_post
 }
+
+// get posts
+export type get_posts = get_posts_response

@@ -4,6 +4,7 @@ const POST = '/post'
 const AUTH = '/auth'
 
 export const api_constant = {
+    getPost: (id: string) => `${POST}/get-post/${id}`,
     getPosts: (type: get_posts_request) => `${POST}/get-posts/${type}`,
     getPopularPosts: `${POST}/get-popular-post`,
     getLatestPost: `${POST}/get-latest-post`,
