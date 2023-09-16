@@ -1,9 +1,9 @@
 import { Card, CardHeader, IconButton, CardMedia, CardContent, Typography, CardActions, Menu, MenuItem } from '@mui/material'
-import { MoreVert, Favorite, Share, Delete, Edit } from '@mui/icons-material'
+import { MoreVert, Favorite, Delete, Edit } from '@mui/icons-material'
 import { get_popular_post } from '../../state/response_constant'
 import { monthName } from '../../utils'
 import { MouseEvent, useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { PATH_HOME } from '../../state/path'
 import { useSelector } from '../../redux/store'
 import useLikePost from '../../hooks/query/useLikePost'
@@ -32,8 +32,6 @@ function BlogCard({
     const isAlreadyLiked = isLoggedIn ? likes.includes(userId) : false;
     const [like, setLike] = useState(isAlreadyLiked);
     const { enqueueSnackbar } = useSnackbar()
-    const location = useLocation()
-    console.log(window.location.origin)
     const postUrl = `${window.location.origin}/${PATH_HOME.blog(_id)}`
 
 
