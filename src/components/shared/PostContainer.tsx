@@ -7,8 +7,6 @@ type PostContainer = {
     viewAmout?: number
 }
 
-
-
 function PostContainer({ title, children, viewAmout }: PostContainer) {
     return (
         <PostBox>
@@ -29,15 +27,21 @@ const PostBox = styled(Box)(() => ({
 }))
 
 const BlogContainer = styled(Box)(({ theme }) => ({
-    display: 'flex',
-    flexWrap: 'wrap',
-    columnGap: '1rem',
-    rowGap: '2rem',
-    justifyItems: 'center',
+    display: 'grid',
+    gap: '30px',
+    gridAutoRows: 'min-content',
+    gridTemplateColumns: 'repeat(3, minmax(200px, 1fr))',
+    height: 'min-content',
+    justifyContent: 'center',
+    overflow: 'hidden',
     margin: '2rem 0',
-    [theme.breakpoints.down('md')]: {
-        justifyContent: 'center'
+    [theme.breakpoints.between('sm', 'md')]: {
+        gridTemplateColumns: 'repeat(2, minmax(200px, 1fr))',
+    },
+    [theme.breakpoints.down('sm')]: {
+        gridTemplateColumns: 'repeat(1, minmax(200px, 1fr))',
     }
+
 }))
 
 export default PostContainer
