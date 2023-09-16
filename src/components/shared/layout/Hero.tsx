@@ -1,4 +1,4 @@
-import { Box, alpha, styled } from "@mui/material"
+import { Box, styled } from "@mui/material"
 import Header from "./Header"
 import Detail from "../../sections/home/Detail"
 
