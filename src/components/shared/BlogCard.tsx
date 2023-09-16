@@ -3,11 +3,12 @@ import { MoreVert, Favorite, Share, Delete, Edit } from '@mui/icons-material'
 import { get_popular_post } from '../../state/response_constant'
 import { monthName } from '../../utils'
 import { MouseEvent, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { PATH_HOME } from '../../state/path'
 import { useSelector } from '../../redux/store'
 import useLikePost from '../../hooks/query/useLikePost'
 import { useSnackbar } from 'notistack'
+import SocialShare from './SocialShare'
 
 interface BlogProps extends get_popular_post {
     isAdmin?: boolean;
@@ -31,6 +32,9 @@ function BlogCard({
     const isAlreadyLiked = isLoggedIn ? likes.includes(userId) : false;
     const [like, setLike] = useState(isAlreadyLiked);
     const { enqueueSnackbar } = useSnackbar()
+    const location = useLocation()
+    console.log(window.location.origin)
+    const postUrl = `${window.location.origin}/${PATH_HOME.blog(_id)}`
 
 
     const handleLikeError = () => {
@@ -116,7 +120,7 @@ function BlogCard({
                             <Favorite color={like ? 'secondary' : 'disabled'} />
                         </IconButton>
                         <IconButton aria-label="share" onClick={handleShare}>
-                            <Share />
+                            <SocialShare url={postUrl} title={title} />
                         </IconButton>
                     </CardActions>
                 </NavLink>
