@@ -70,10 +70,6 @@ function BlogCard({
         triggerLike(_id)
     }
 
-    const handleShare = (event: MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault()
-    }
-
 
     return (
         <>
@@ -117,9 +113,7 @@ function BlogCard({
                         <IconButton aria-label="add to favorites" onClick={handleLike}>
                             <Favorite color={like ? 'secondary' : 'disabled'} />
                         </IconButton>
-                        <IconButton aria-label="share" onClick={handleShare}>
-                            <SocialShare url={postUrl} title={title} />
-                        </IconButton>
+                        <SocialShare url={postUrl} title={title} />
                     </CardActions>
                 </NavLink>
             </Card>
