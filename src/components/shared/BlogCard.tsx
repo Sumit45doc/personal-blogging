@@ -1,9 +1,9 @@
-import { Card, CardHeader, IconButton, CardMedia, CardContent, Typography, CardActions, Menu, MenuItem } from '@mui/material'
+import { Card, CardHeader, IconButton, CardMedia, CardContent, Typography, CardActions, Menu, MenuItem, Box, Button } from '@mui/material'
 import { MoreVert, Favorite, Delete, Edit } from '@mui/icons-material'
 import { get_popular_post } from '../../state/response_constant'
 import { monthName } from '../../utils'
 import { MouseEvent, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { PATH_HOME } from '../../state/path'
 import { useSelector } from '../../redux/store'
 import useLikePost from '../../hooks/query/useLikePost'
@@ -32,12 +32,14 @@ function BlogCard({
     const isAlreadyLiked = isLoggedIn ? likes.includes(userId) : false;
     const [like, setLike] = useState(isAlreadyLiked);
     const { enqueueSnackbar } = useSnackbar()
+    const navigate = useNavigate()
+
     const postUrl = `${window.location.origin}/${PATH_HOME.blog(_id)}`
 
 
     const handleLikeError = () => {
         setLike(prev => !prev)
-        enqueueSnackbar(<Typography>Something went wrong while {like ? 'dislike' : 'like'} post</Typography>, {
+        enqueueSnackbar(<Typography>Something went wrong while {!like ? 'dislike' : 'like'} post</Typography>, {
             variant: 'error'
         })
     }
@@ -66,6 +68,30 @@ function BlogCard({
 
     const handleLike = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
+
+        // TODO: Should signin or signup popup rather then nav to other auth page
+        if (!isLoggedIn) {
+            enqueueSnackbar(
+                <Box>
+                    <Typography>You need to signin/signup - </Typography>
+                    <Button
+                        variant='contained'
+                        size='small'
+                        onClick={() => navigate(`/${PATH_HOME.signIn}`)}
+                    >signin</Button>
+                    <Button
+                        variant='contained'
+                        size='small'
+                        sx={{ ml: 1 }}
+                        onClick={() => navigate(`/${PATH_HOME.signUp}`)}
+                    >signup</Button>
+                </Box>
+                , {
+                    variant: 'info'
+                })
+            return;
+        }
+
         setLike(prev => !prev)
         triggerLike(_id)
     }
