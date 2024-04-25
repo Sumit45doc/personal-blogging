@@ -5,12 +5,12 @@ function AboutDetails() {
     return (
         <AboutContainer maxWidth='lg'>
             <Typography variant='h3' sx={{ textAlign: 'center', fontSize: { xs: '2rem', md: '2.8rem' } }}>
-                ABOUT RUCHITA SAMEL
+                ABOUT PERSONAL BLOG
             </Typography>
             <AboutDetailContainer>
                 <Image
                     src="/assets/production_11.webp"
-                    alt="ruchita samel"
+                    alt="PERSONAL BLOG"
                     sx={{ flex: 0.5, height: '80vh' }}
                 />
                 <Box sx={{ flex: 0.5 }}>

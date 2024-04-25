@@ -33,7 +33,7 @@ function Header() {
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
             <Typography variant="h6" sx={{ my: 2 }}>
-                Ruchita Samel
+                PERSONAL BLOG
             </Typography>
             <Divider />
             <List>
@@ -97,7 +97,7 @@ function Header() {
                                 sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' }, cursor: 'pointer' }}
                                 onClick={() => navigate('/home')}
                             >
-                                Ruchita Samel
+                                PERSONAL BLOG
                             </Typography>
                             <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                                 <Box sx={{ display: 'inline-block', my: 2, mx: 1, color: 'rgba(255,255,255,0.6)' }}

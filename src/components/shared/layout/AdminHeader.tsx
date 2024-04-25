@@ -31,7 +31,7 @@ function AdminHeader({ children }: Props) {
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
             <Typography variant="h6" sx={{ my: 2 }}>
-                Ruchita Samel
+                PERSONAL BLOG
             </Typography>
             <Divider />
             <List>
@@ -76,7 +76,7 @@ function AdminHeader({ children }: Props) {
                                     sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' }, cursor: 'pointer' }}
                                     onClick={() => navigate('/home')}
                                 >
-                                    Ruchita Samel
+                                    PERSONAL BLOG
                                 </Typography>
                                 <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                                     {pages.map((page) => (
